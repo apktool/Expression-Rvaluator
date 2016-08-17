@@ -24,6 +24,14 @@ class BinaryNode:public Node{
 		Node* const right_;
 };
 
+class UnaryNode:public Node{
+	public:
+		UnaryNode(Node* child):child_(child){}
+		~UnaryNode();
+	protected:
+		Node* const child_;
+};
+
 class AddNode:public BinaryNode{
 	public:
 		AddNode(Node* left, Node* right):BinaryNode(left,right){}
@@ -47,6 +55,12 @@ class MultiplyNode:public BinaryNode{
 class DivideNode:public BinaryNode{
 	public:
 		DivideNode(Node* left, Node* right):BinaryNode(left, right){}
+		double Calc() const;
+};
+
+class UMinusNode:public UnaryNode{
+	public:
+		UMinusNode(Node* child):UnaryNode(child){}
 		double Calc() const;
 };
 
