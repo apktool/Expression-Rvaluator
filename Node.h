@@ -1,7 +1,16 @@
 #ifndef _NODE_H_
 #define _NODE_H_
 
-class Node{
+class Noncopyable{
+	protected:
+		Noncopyable(){}
+		~Noncopyable(){}
+	private:
+		Noncopyable(const Noncopyable&);//实现禁止拷贝
+		const Noncopyable& operator= (const Noncopyable&);
+};
+
+class Node:private Noncopyable{	//不是接口继承，而是实现继承
 	public:
 		virtual double Calc() const=0;
 		virtual ~Node(){};
@@ -65,13 +74,3 @@ class UMinusNode:public UnaryNode{
 };
 
 #endif	//_NODE_H_
-
-/*
- * 虚基类中，基类指针指向派生类对象，如果析构函数不声明为虚函数的话，会导致通过基类指针释放派生类对象时出错。
- * 比如：
- * Node* p=new AddNode
- * delete p;
- *
- * 如果不使用虚析构函数的话，会导致AddNode类中的析构函数没办法执行。
- * 即只会执行基类的析构函数，而不会执行派生类的析构函数
- */
