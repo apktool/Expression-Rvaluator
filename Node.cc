@@ -11,6 +11,10 @@ BinaryNode::~BinaryNode(){
 	delete right_;
 }
 
+UnaryNode::~UnaryNode(){
+
+}
+
 double AddNode::Calc() const{
 	return left_->Calc()+right_->Calc();
 }
@@ -31,4 +35,8 @@ double DivideNode::Calc() const{
 		std::cout<<"Eorror: Divisor by zero"<<std::endl;
 		return HUGE_VAL; //头文件<cmath>中定义的一个最大数
 	}
+}
+
+double UMinusNode::Calc() const{
+	return -child_->Calc();
 }
