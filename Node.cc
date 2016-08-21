@@ -12,7 +12,7 @@ BinaryNode::~BinaryNode(){
 }
 
 UnaryNode::~UnaryNode(){
-
+	delete child_;
 }
 
 double AddNode::Calc() const{
