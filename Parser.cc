@@ -73,5 +73,5 @@ Node* Parser::Factor(){
 
 double Parser::Calculate()const{
 	assert(tree_!=0);
-	return 0.0;
+	return tree_->Calc();
 }
