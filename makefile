@@ -1,7 +1,7 @@
 CFLAGS=-Wall -std=c++11
 CC=g++
 BIN=a.out
-OBJS=main.o Node.o Scanner.o Parser.o
+OBJS=main.o Node.o Scanner.o Parser.o SymbolTable.o Storage.o
 
 $(BIN):$(OBJS)
 	$(CC) $^ -o $@ $(CFLAGS) 
