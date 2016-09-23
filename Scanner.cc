@@ -4,10 +4,23 @@
 
 Scanner::Scanner(const std::string& buf):buf_(buf),curPos_(0){
 	Accept();
+	IsEmpty_=(token_==TOKEN_END);
+}
+
+bool Scanner::IsEmpty() const{
+	return IsEmpty_;
+}
+
+bool Scanner::IsDone() const{
+	return 	token_==TOKEN_END;
 }
 
 double Scanner::Number() const{
 	return number_;
+}
+
+std::string Scanner::GetSymbol() const{
+	return symbol_;
 }
 
 EToken Scanner::Token() const{
@@ -47,6 +60,10 @@ void Scanner::Accept(){
 			token_=TOKEN_RPARENTHESIS;
 			++curPos_;
 			break;
+		case '=':
+			token_=TOKEN_ASSIGN;
+			++curPos_;
+			break;
 		case '0': case '1': case '2': case '3': case '4': case '5': case '6': case '7': case '8': case '9': case '.':
 			token_=TOKEN_NUMBER;
 			char* p;
@@ -57,7 +74,18 @@ void Scanner::Accept(){
 			token_=TOKEN_END;
 			break;
 		default:
-			token_=TOKEN_ERROR;
+			if(isalpha(buf_[curPos_])||buf_[curPos_]=='_'){	//如果以字母或者下划线开头的，则表示标识符合法
+				token_=TOKEN_IDENTIFIER;
+				symbol_.erase();
+				char ch=buf_[curPos_];
+				do{
+					symbol_+=ch;
+					++curPos_;
+					ch=buf_[curPos_];
+				}while(isalnum(ch)||ch=='_');
+			}else{
+				token_=TOKEN_ERROR;
+			}
 			break;
 	}
 }
