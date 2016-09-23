@@ -1,4 +1,5 @@
 #include"Node.h"
+#include"Storage.h"
 #include<iostream>
 #include<cmath>
 #include<cassert>
@@ -84,4 +85,29 @@ double ProductNode::Calc() const{
 	}
 	assert(positiveIt==positives_.end());
 	return result;
+}
+
+double VariableNode::Calc() const{
+	double x=0.0;
+	if(storage_.IsInit(id_)){
+		x=storage_.GetValue(id_);
+	}else{
+		std::cout<<"Use of uninitialized variable."<<std::endl;
+	}
+	return x;
+}
+
+bool VariableNode::IsLvalue() const{
+	return true;
+}
+
+void VariableNode::Assign(double val){
+	storage_.SetValue(id_,val);
+}
+
+double AssignNode::Calc() const{
+	double x=0.0;
+	x=right_->Calc();
+	left_->Assign(x);
+	return x;
 }
