@@ -1,5 +1,6 @@
 #include"SymbolTable.h"
 #include"Storage.h"
+#include<iostream>
 #include<assert.h>
 #include<cmath>
 
@@ -18,10 +19,13 @@ bool Storage::IsInit(unsigned int id) const{
 
 void Storage::AddConstants(SymbolTable& tbl){
 	unsigned int id;
+	std::cout<<"Variable list:"<<std::endl;
 
+	std::cout<<"e="<<exp(1.0)<<std::endl;
 	id=tbl.Add("e");
 	AddValue(id,exp(1.0));
 
+	std::cout<<"pi="<<2.0*acos(0.0)<<std::endl;
 	id=tbl.Add("pi");
 	AddValue(id,2.0*acos(0.0));//反余弦函数 pi=2*acos(0)
 }
