@@ -2,6 +2,7 @@
 #define _NODE_H_
 #include<vector>
 #include<cassert>
+#include"FunctionTable.h"
 
 class Noncopyable{
 	protected:
@@ -48,6 +49,15 @@ class UnaryNode:public Node{
 	protected:
 		Node* const child_;
 };
+
+class FunctionNode:public UnaryNode{
+	public:
+		FunctionNode(Node* child, PtrFun pFun):UnaryNode(child), pFun_(pFun){}
+		double Calc() const;
+	private:
+		PtrFun pFun_;
+};
+
 /*
 class AddNode:public BinaryNode{
 	public:
