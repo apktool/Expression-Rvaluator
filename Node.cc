@@ -39,6 +39,10 @@ double DivideNode::Calc() const{
 	}
 }
 */
+double FunctionNode::Calc() const{
+	return (*pFun_)(child_->Calc());
+}
+
 double UMinusNode::Calc() const{
 	return -child_->Calc();
 }
