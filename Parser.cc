@@ -2,8 +2,11 @@
 #include"Parser.h"
 #include"Scanner.h"
 #include"Node.h"
+#include"Exception.h"
 #include<cassert>
 #include<iostream>
+#include<string>
+#include<stdio.h>
 
 Parser::Parser(Scanner& scanner,Calc& calc):scanner_(scanner),calc_(calc),tree_(0),status_(STATUS_OK){
 
@@ -50,8 +53,9 @@ Node* Parser::Expr(){
 			node=new AssignNode(node, nodeRight);
 		}else{
 			status_=STATUS_ERROR;
+			//std::cout<<"The left-hand side of an assignment must be a variable"<<std::endl;
 			//Tod 抛出异常
-			std::cout<<"lThe left-hand side of an assignment must be a variable"<<std::endl;
+			throw SyntaxError("lThe left-hand side of an assignment must be a variable");
 		}
 	}
 	return node;
@@ -96,8 +100,9 @@ Node* Parser::Factor(){
 			scanner_.Accept();	//accept ')'
 		}else{
 			status_=STATUS_ERROR;
+			//std::cout<<"missing parenthesis "<<std::endl;
 			//Todo:抛出异常
-			std::cout<<"missing parenthesis "<<std::endl;
+			throw SyntaxError("missing parenthesis");
 			node=0;
 		}
 	}else if(token==TOKEN_NUMBER){
@@ -119,11 +124,15 @@ Node* Parser::Factor(){
 					node=new FunctionNode(node,calc_.GetFunction(id));
 				}else{
 					status_=STATUS_ERROR;
-					std::cout<<"Unknow function"<<"\""<<symbol<<"\""<<std::endl;
+					//std::cout<<"Unknow function"<<"\""<<symbol<<"\""<<std::endl;
+					char buf[128]={0};
+					sprintf(buf,"Unknow function \" %s \".",symbol.c_str());
+					throw SyntaxError(buf);
 				}
 			}else{
 				status_=STATUS_ERROR;
-				std::cout<<"Missing parenthesis in a funciton call."<<std::endl;
+				//std::cout<<"Missing parenthesis in a funciton call."<<std::endl;
+				throw SyntaxError("Missing parenthesis in a funciton call.");
 			}
 		}else{
 			if(id==SymbolTable::IDNOTFOUND){
@@ -138,8 +147,9 @@ Node* Parser::Factor(){
 		node=new UMinusNode(Factor());
 	}else{
 		status_=STATUS_ERROR;
+		//std::cout<<"not a valid expression"<<std::endl;
 		//Todo:抛出异常
-		std::cout<<"not a valid expression"<<std::endl;
+		throw SyntaxError("not a valid expression");
 		node=0;
 	}
 	return node;
