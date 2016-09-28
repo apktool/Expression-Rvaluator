@@ -1,12 +1,13 @@
+#include<cstdio>
+#include<cassert>
+#include<iostream>
+#include<string>
 #include"Calc.h"
 #include"Parser.h"
 #include"Scanner.h"
 #include"Node.h"
 #include"Exception.h"
-#include<cassert>
-#include<iostream>
-#include<string>
-#include<stdio.h>
+#include"DebugNew.h"
 
 Parser::Parser(Scanner& scanner,Calc& calc):scanner_(scanner),calc_(calc),tree_(0),status_(STATUS_OK){
 

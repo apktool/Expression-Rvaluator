@@ -25,7 +25,7 @@ int main(int argc, char* argv[]){
 				}
 			}catch(SyntaxError& se){
 				std::cout<<se.what()<<std::endl;
-				std::cout<<se.StackTrace()<<std::endl;	//栈回溯
+				//std::cout<<se.StackTrace()<<std::endl;	//栈回溯
 			}catch(Exception& e){
 				std::cout<<e.what()<<std::endl;
 			}catch(...){
