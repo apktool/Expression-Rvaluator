@@ -73,3 +73,10 @@ scoped_ptr 	与auto_ptr类似，所有权独占，不能共享，但是也不可
 
 # RAII(Resource Acquisition Is Initialization)
 一个对象可以拥有资源。在对象的构造函数中执行资源的获取（指针的初始化），在析构函数中释放。
+
+# vector
+vector 保存的是指针本身，并没有保存指针所指向的内存
+vector 不负责指针所指向的内存的管理
+vector 中不能存放auto_ptr；如果有必要可以存放shared_ptr, scoped_ptr
+
+STL容器要求存放在容器中的元素能够被拷贝，也就是要求类型是值语义对象
