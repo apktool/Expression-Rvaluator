@@ -36,7 +36,8 @@ double Storage::GetValue(unsigned int id) const{
 }
 
 void Storage::SetValue(unsigned int id, double val){
-	assert(id<=cells_.size());
+	//assert(id<=cells_.size());
+	assert(id>=0);
 	if(id<cells_.size()){
 		cells_[id]=val;
 		inits_[id]=true;
