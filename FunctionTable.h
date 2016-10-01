@@ -15,6 +15,9 @@ class FunctionTable{
 		PtrFun GetFunction(unsigned int id) const{
 			return pFuns_[id];
 		}
+		unsigned int GetSize() const{
+			return size_;
+		}
 	private:
 		PtrFun* pFuns_;
 		unsigned int size_;
