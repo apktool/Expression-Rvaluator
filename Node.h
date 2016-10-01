@@ -147,7 +147,7 @@ class AssignNode:public BinaryNode{
 	public:
 		//AssignNode(Node* left, Node* right):BinaryNode(left,right){
 		AssignNode(std::auto_ptr<Node>& left, std::auto_ptr<Node>& right):BinaryNode(left,right){
-			assert(left->IsLvalue());
+			assert(left_->IsLvalue());//引入只能指针之后，指针left的所有权在执行完会转移，如果继续使用left会导致运行时错误，因此这里需要使用left_
 		}
 		double Calc() const;
 };
