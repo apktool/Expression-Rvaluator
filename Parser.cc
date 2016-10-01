@@ -2,6 +2,7 @@
 #include<cassert>
 #include<iostream>
 #include<memory>
+#include<sstream>
 #include<string>
 #include"Calc.h"
 #include"Parser.h"
@@ -147,8 +148,11 @@ std::auto_ptr<Node> Parser::Factor(){
 					status_=STATUS_ERROR;
 					//std::cout<<"Unknow function"<<"\""<<symbol<<"\""<<std::endl;
 					char buf[128]={0};
-					sprintf(buf,"Unknow function \" %s \".",symbol.c_str());
-					throw SyntaxError(buf);
+					//sprintf(buf,"Unknow function \" %s \".",symbol.c_str());
+					//throw SyntaxError(buf);
+					std::ostringstream oss;
+					oss<<"Unknow function \""<<symbol<<"\". ";
+					throw SyntaxError(oss.str());
 					//node=0;
 				}
 			}else{

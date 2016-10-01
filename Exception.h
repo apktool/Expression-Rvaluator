@@ -10,6 +10,9 @@ class Exception:public std::exception{
 		explicit Exception(const char* message):message_(message){
 			FillStackTrace();	//将栈信息写入
 		}
+		explicit Exception(const std::string message):message_(message){
+			FillStackTrace();	//将栈信息写入
+		}
 		virtual ~Exception() throw(){	//不抛出异常
 
 		}
@@ -25,10 +28,10 @@ class Exception:public std::exception{
 class SyntaxError:public Exception{
 	public:
 		explicit SyntaxError(const char* message):Exception(message){
-
+		}
+		explicit SyntaxError(const std::string& message):Exception(message){
 		}
 		virtual ~SyntaxError() throw(){
-
 		}
 };
 
