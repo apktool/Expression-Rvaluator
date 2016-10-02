@@ -107,7 +107,7 @@ DeSerializer::DeSerializer(const std::string& fileName):stream_(fileName.c_str()
 
 DeSerializer& DeSerializer::Get(int& x){
 	if(stream_.eof()){
-		throw FileStreamError("Unexpected end of fiile.");//为了避免已经读到末尾了还继续读取的错误
+		throw FileStreamError("Unexpected end of fiil.");//为了避免已经读到末尾了还继续读取的错误
 	}
 	stream_.read(reinterpret_cast<char*>(&x),sizeof(int));
 	if(stream_.bad()){

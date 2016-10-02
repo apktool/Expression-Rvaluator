@@ -1,7 +1,31 @@
+#include<algorithm>
+#include<string>
+#include<map>
 #include"SymbolTable.h"
 #include"Exception.h"
-#include<algorithm>
-#include<map>
+#include"Serial.h"
+
+void SymbolTable::Serialize(Serializer& out) const{
+	out<<dictionary_.size();
+	std::map<const std::string, unsigned int>::const_iterator it;
+	for(it=dictionary_.begin();it!=dictionary_.end();++it){
+		out<<it->first<<it->second;
+	}
+	out<<curId_;
+}
+
+void SymbolTable::DeSerialize(DeSerializer& in){
+	dictionary_.clear();
+	unsigned int size;
+	in>>size;
+	for(unsigned int i=0;i<size;++i){
+		std::string str;
+		unsigned int id;
+		in>>str>>id;
+		dictionary_[str]=id;
+	}
+	in>>curId_;
+}
 
 unsigned int SymbolTable::Add(const std::string& str){
 	dictionary_[str]=curId_;

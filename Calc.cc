@@ -2,6 +2,16 @@
 #include<string>
 #include"Calc.h"
 
+void Calc::Serialize(Serializer& out) const{
+	symTbl_.Serialize(out);
+	storage_.Serialize(out);
+}
+
+void Calc::DeSerialize(DeSerializer& in){
+	symTbl_.DeSerialize(in);
+	storage_.DeSerialize(in);
+}
+
 unsigned int Calc::FindSymbol (const std::string& str) const{
 	return symTbl_.Find(str);
 }

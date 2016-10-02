@@ -1,12 +1,15 @@
 #ifndef _STORAGE_H_
 #define _STORAGE_H_
 #include<vector>
+#include"Serial.h"
 
 class SymbolTable;
 
-class Storage{
+class Storage:public Serializable{
 	public:
 		Storage(SymbolTable& tbl);
+		void Serialize(Serializer& out) const;
+		void DeSerialize(DeSerializer& in);
 		void Clear();
 		bool IsInit(unsigned int id) const;
 		void AddConstants(SymbolTable& tbl);
