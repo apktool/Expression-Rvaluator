@@ -44,6 +44,14 @@ Serializer& Serializer::Put(unsigned long x){
 	return *this;
 }
 
+Serializer& Serializer::Put(double x){
+	stream_.write(reinterpret_cast<char*>(&x),sizeof(double));
+	if(stream_.bad()){
+		throw FileStreamError("Write file failed.");
+	}
+	return *this;
+}
+
 Serializer& Serializer::Put(const std::string x){
 	int len=x.length();
 	Put(len);
@@ -66,7 +74,10 @@ Serializer& Serializer::operator<< (int x){
 
 Serializer& Serializer::operator<< (unsigned int x){
 	return Put(x);
+}
 
+Serializer& Serializer::operator<< (double x){
+	return Put(x);
 }
 
 Serializer& Serializer::operator<< (long x){
@@ -107,6 +118,14 @@ DeSerializer& DeSerializer::Get(int& x){
 
 DeSerializer& DeSerializer::Get(unsigned int& x){
 	stream_.read(reinterpret_cast<char*>(&x),sizeof(unsigned int));
+	if(stream_.bad()){
+		throw FileStreamError("Read file failed.");
+	}
+	return *this;
+}
+
+DeSerializer& DeSerializer::Get(double & x){
+	stream_.read(reinterpret_cast<char*>(&x),sizeof(double));
 	if(stream_.bad()){
 		throw FileStreamError("Read file failed.");
 	}
@@ -162,7 +181,10 @@ DeSerializer& DeSerializer::operator>> (int& x){
 
 DeSerializer& DeSerializer::operator>> (unsigned int& x){
 	return Get(x);
+}
 
+DeSerializer& DeSerializer::operator>> (double& x){
+	return Get(x);
 }
 
 DeSerializer& DeSerializer::operator>> (long& x){
